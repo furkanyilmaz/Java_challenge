@@ -18,11 +18,10 @@ import java.io.Serializable;
 public class Employee extends BaseEntity implements Serializable {
     public static final long serialVersionUID=1L;
 
-    @SequenceGenerator(name = "employee", sequenceName = "SEHIR_ID_SEQ" )
-    @Id
-    @GeneratedValue( generator = "employee" , strategy = GenerationType.SEQUENCE)
-    // @Column(nullable = false)
-    private Long id;
+   @SequenceGenerator(name = "employee", sequenceName = "Employee_ID_SEQ")
+   @Id
+   @GeneratedValue(generator = "employee", strategy = GenerationType.SEQUENCE)
+   private Long id;
 
     private String name;
 
@@ -32,13 +31,18 @@ public class Employee extends BaseEntity implements Serializable {
 
     private String salary;
 
-    @ManyToOne(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    private Company company;
+//    @ManyToOne(
+//            cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            optional = false
+//    )
+//    private Company company;
 
+   @ManyToOne(
+           cascade = CascadeType.ALL,
+           fetch = FetchType.LAZY
+   )
+    private Company company;
 
 
 }

@@ -64,7 +64,7 @@ public class EmployeeApiImpl implements IEmployeeApi {
     //UPDATE
     @Override
     @PutMapping("/employee/update/{id}")
-    public ResponseEntity<EmployeeDto> update(@PathVariable(name = "id") Long id, @Valid @RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable(name = "id") Long id, @Valid @RequestBody EmployeeDto employeeDto) {
         services.updateEmployee(id,employeeDto);
         return ResponseEntity.ok(employeeDto);
     }

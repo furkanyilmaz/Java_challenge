@@ -30,25 +30,25 @@ public class CompanyController implements ICompanyController{
     private final ModelMapperBean modelMapperBean;
 
     // SPEED DATA
-    // http://localhost:8091/speedData
-    @GetMapping("/speedData")
+    // http://localhost:8091/speedDataC
+    @GetMapping("/speedDataC")
     public String createSpeedDataC(Model model) {
         int counter= 0;
         for (int i = 1; i<=5; i++) {
             UUID uuid = UUID.randomUUID();
-            Company registerEntity = Company.builder()
+            Company companyEntity = Company.builder()
                     .name("Company Name "+ i).owner("OwnerName "+i)
                     .build();
-            repository.save(registerEntity);
+            repository.save(companyEntity);
             counter++;
         }
         model.addAttribute("key_dataset", counter + " tane company Entity olustu.");
         return "redirect:/company/list";
     }
 
-    // SPEED DELETE
-    // http://localhost:8091/speedData
-    @GetMapping("/speedDelete")
+    // SPEED DELETE Company
+    // http://localhost:8091/speedDataC
+    @GetMapping("/speedDeleteC")
     public String deleteSpeedDataC(Model model) {
         repository.deleteAll();
         return "redirect:/company/list";
@@ -73,10 +73,10 @@ public class CompanyController implements ICompanyController{
         model.addAttribute("company_success", "Company Saved"+ companyDto);
         log.info("Success "+ companyDto);
 
-        Company registerEntity = modelMapperBean.modelMapperMethod().map(companyDto, Company.class);
+        Company companyEntity = modelMapperBean.modelMapperMethod().map(companyDto, Company.class);
         try {
-            if (registerEntity !=null){
-                repository.save(registerEntity);
+            if (companyEntity !=null){
+                repository.save(companyEntity);
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -101,8 +101,8 @@ public class CompanyController implements ICompanyController{
     // http://localhost:8091/company/find/1
     @GetMapping( "/company/find/{id}")
     public String companyFindById(@PathVariable(name = "id") long id, Model model) {
-        Company registerEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "nolu sirket bulunamadi"));
-        model.addAttribute("company_find", registerEntity);
+        Company companyEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "nolu sirket bulunamadi"));
+        model.addAttribute("company_find", companyEntity);
         return "company_detail_page";
     }
 
@@ -111,10 +111,10 @@ public class CompanyController implements ICompanyController{
     // http://localhost:8091/company/delete/1
     @GetMapping({"/company/delete", "/company/delete/{id}"})
     public String companyDeleteById(@PathVariable(name = "id", required = false) long id, Model model) {
-        Company registerEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "nolu sirket bulunamadi"));
-        if (registerEntity != null){
+        Company companyEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "nolu sirket bulunamadi"));
+        if (companyEntity != null){
             repository.deleteById(id);
-            model.addAttribute("key_delete", registerEntity + "sirket silindi.");
+            model.addAttribute("key_delete", companyEntity + "sirket silindi.");
         } else
             model.addAttribute("key_delete", id + "numarali sirket yok");
         return "redirect:/company/list";
@@ -124,9 +124,9 @@ public class CompanyController implements ICompanyController{
     // http://localhost:8091/company/update
     @GetMapping("/company/update/{id}")
     public String updateGetCompany(@PathVariable(name = "id") long id, Model model) {
-        Company registerEntityFind = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id+ "numarali sirket yok"));
-        if (registerEntityFind !=null){
-            model.addAttribute("key_update", registerEntityFind);
+        Company companyEntityFind = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id+ "numarali sirket yok"));
+        if (companyEntityFind !=null){
+            model.addAttribute("key_update", companyEntityFind);
         } else
             model.addAttribute("key_update", id + "numarali sirket yok");
         return "company_update";
@@ -140,10 +140,10 @@ public class CompanyController implements ICompanyController{
             log.error("HATA: " + bindingResult);
             return "company_update";
         }
-        Company registerEntity = modelMapperBean.modelMapperMethod().map(companyDto, Company.class);
+        Company companyEntity = modelMapperBean.modelMapperMethod().map(companyDto, Company.class);
         try {
-            if (registerEntity!= null){
-                repository.save(registerEntity);
+            if (companyEntity!= null){
+                repository.save(companyEntity);
             }
         } catch (Exception e){
             e.printStackTrace();

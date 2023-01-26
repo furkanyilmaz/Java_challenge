@@ -45,7 +45,7 @@ public class CompanyApiImpl implements ICompanyApi {
     //FIND
     @Override
     @GetMapping("/company/find/{id}")
-    public ResponseEntity<CompanyDto> findCompany(Long id) {
+    public ResponseEntity<CompanyDto> findCompany(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(services.findCompany(id));
     }
 
@@ -56,7 +56,7 @@ public class CompanyApiImpl implements ICompanyApi {
     public ResponseEntity<Map<String, Boolean>> deleteCompany(@PathVariable (name = "id") Long id) {
         services.deleteCompany(id);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("company deleted", Boolean.TRUE);
+        response.put(id + " id'li şirket silindi", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
 
@@ -64,7 +64,7 @@ public class CompanyApiImpl implements ICompanyApi {
     //UPDATE
     @Override
     @PutMapping("/company/update/{id}")
-    public ResponseEntity<CompanyDto> update(@PathVariable(name = "id") Long id, @Valid @RequestBody CompanyDto companyDto) {
+    public ResponseEntity<CompanyDto> updateCompany(@PathVariable(name = "id") Long id, @Valid @RequestBody CompanyDto companyDto) {
         services.updateCompany(id,companyDto);
         return ResponseEntity.ok(companyDto);
     }

@@ -20,5 +20,5 @@ public interface IEmployeeApi {
     ResponseEntity<Map<String,Boolean>> deleteEmployee(Long id);
 
     //UPDATE
-    ResponseEntity<EmployeeDto> update(Long id , EmployeeDto employeeDto);
+    ResponseEntity<EmployeeDto> updateEmployee(Long id , EmployeeDto employeeDto);
 }

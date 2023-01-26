@@ -55,8 +55,8 @@
 
 
 <a th:href="@{/company/create}" class="btn btn-primary">ADD COMPANY</a>
-<a th:href="@{/speedData}" class="btn btn-secondary">FAST ADD</a>
-<a th:href="@{/speedDelete}" class="btn btn-danger">DELETE ALL DATA</a>
+<a th:href="@{/speedDataC}" class="btn btn-secondary">FAST ADD</a>
+<a th:href="@{/speedDeleteC}" class="btn btn-danger">DELETE ALL DATA</a>
 <br><br>
 <table class="table table-hover table-striped" id="datalistregisterTable">
     <thead>
@@ -64,7 +64,6 @@
         <th class="text-uppercase" th:text="#{company.id}"></th>
         <th class="text-uppercase" th:text="#{company.name}"></th>
         <th class="text-uppercase" th:text="#{company.owner}"></th>
-        <th class="text-uppercase" th:text="#{company.employees}"></th>
         <th class="text-uppercase" th:text="#{company.date}"></th>
         <th class="text-uppercase" th:text="#{company.update}"></th>
         <th class="text-uppercase" th:text="#{company.show}"></th>
@@ -76,7 +75,6 @@
         <td th:text="${company.id}"></td>
         <td th:text="${company.name}"></td>
         <td th:text="${company.owner}"></td>
-        <td th:text="${company.employees}"></td>
         <td th:text="${company.createdDate}"></td>
         <td><a class="btn btn-primary" th:href="@{/company/update/{id}(id=${company.id})}"> <i
                 class="fa-solid fa-wrench"></i> </a></td>

@@ -42,8 +42,8 @@ public class EmployeeServicesImpl implements IEmployeeServices {
     //CREATE
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
-        Employee registerEmployeeEntity = dtoToEntity(employeeDto);
-        repository.save(registerEmployeeEntity);
+        Employee employeeEntity = dtoToEntity(employeeDto);
+        repository.save(employeeEntity);
         return employeeDto;
     }
 

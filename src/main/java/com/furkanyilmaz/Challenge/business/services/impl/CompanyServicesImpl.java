@@ -37,8 +37,8 @@ public class CompanyServicesImpl implements ICompanyServices {
     //CREATE
     @Override
     public CompanyDto createCompany(CompanyDto companyDto) {
-        Company registerCompanyEntity = dtoToEntity(companyDto);
-        repository.save(registerCompanyEntity);
+        Company companyEntity = dtoToEntity(companyDto);
+        repository.save(companyEntity);
         return companyDto;
     }
 
@@ -79,7 +79,7 @@ public class CompanyServicesImpl implements ICompanyServices {
         if (companyEntity != null){
             companyEntity.setName(companyDto.getName());
             companyEntity.setOwner(companyDto.getOwner());
-            companyEntity.setEmployees(Collections.singleton(companyDto.getEmployees())); //collection singleton ?
+            //companyEntity.setEmployees(Collections.singleton(companyDto.getEmployees())); //collection singleton ?
             repository.save(companyEntity);
         }
         return null;

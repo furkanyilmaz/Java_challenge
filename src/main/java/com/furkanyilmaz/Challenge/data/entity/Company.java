@@ -20,10 +20,15 @@ import java.util.Set;
 public class Company extends BaseEntity implements Serializable {
     public static final long serialVersionUID=1L;
 
-    @SequenceGenerator(name = "company", sequenceName = "COMPANY_ID_SEQ")
+//    @SequenceGenerator(name = "company", sequenceName = "COMPANY_ID_SEQ")
+//    @Id
+//    @GeneratedValue( generator = "company" , strategy = GenerationType.SEQUENCE)
+//    // @Column(nullable = false)
+//    private Long id;
+
+    @SequenceGenerator(name = "company", sequenceName = "Company_ID_SEQ")
     @Id
-    @GeneratedValue( generator = "company" , strategy = GenerationType.SEQUENCE)
-    // @Column(nullable = false)
+    @GeneratedValue(generator = "company", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
@@ -32,8 +37,7 @@ public class Company extends BaseEntity implements Serializable {
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
-            mappedBy = "company",
-            targetEntity = Employee.class
+            mappedBy = "company"
     )
-    private Set employees = new HashSet();
+        private Set<Employee> employees = new HashSet<Employee>();
 }

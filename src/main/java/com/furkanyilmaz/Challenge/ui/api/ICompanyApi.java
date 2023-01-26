@@ -19,5 +19,5 @@ public interface ICompanyApi {
     ResponseEntity<Map<String,Boolean>> deleteCompany(Long id);
 
     //UPDATE
-    ResponseEntity<CompanyDto> update(Long id , CompanyDto companyDto);
+    ResponseEntity<CompanyDto> updateCompany(Long id , CompanyDto companyDto);
 }

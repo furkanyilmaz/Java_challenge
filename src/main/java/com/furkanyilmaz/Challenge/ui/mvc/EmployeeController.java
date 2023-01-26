@@ -42,19 +42,18 @@ public class EmployeeController implements IEmployeeController{
         int counter = 0;
         for (int i = 1; i <= 5; i++) {
             UUID uuid = UUID.randomUUID();
-            Employee registerEmployeeEntity = Employee.builder()
+            Employee employeeEntity = Employee.builder()
                     .name(" SpringBOOT  " + i + ". Employee")
-                    .email(uuid.toString().concat("@gmail.com"))
                     .password("pswd " + i)
-                    .salary("10000")
-//                    .blogCreatedDate(new Date(System.currentTimeMillis()))
+                    .email(uuid.toString().concat("@gmail.com"))
+                    .salary("10000"+i)
                     .build();
-            repository.save(registerEmployeeEntity);
+            repository.save(employeeEntity);
             //model mapper kullanmadan direkt entity'i build ettik.(dto değil)
             counter++;
         }
-        model.addAttribute("key_dataset", counter + " tane Blog oluşturuldu...");
-        return "redirect:/blog/list";
+        model.addAttribute("key_dataset", counter + " tane Employee oluşturuldu...");
+        return "redirect:/employee/list";
     }
 
     // SPEED DELETE
@@ -89,10 +88,10 @@ public class EmployeeController implements IEmployeeController{
         //masking password
         employeeDto.setPassword(passwordEncoderBean.passwordEncoderMethod().encode(employeeDto.getPassword()));
         //model mapper
-        Employee registerEmployeeEntity = modelMapperBean.modelMapperMethod().map(employeeDto, Employee.class);
+        Employee employeeEntity = modelMapperBean.modelMapperMethod().map(employeeDto, Employee.class);
         try {
-            if (registerEmployeeEntity != null){
-                repository.save(registerEmployeeEntity);
+            if (employeeEntity != null){
+                repository.save(employeeEntity);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,8 +117,8 @@ public class EmployeeController implements IEmployeeController{
     // http://localhost:8091/employee/find/1
     @GetMapping( "/employee/find/{id}")
     public String employeeFindById(@PathVariable(name = "id") long id, Model model) {
-        Employee registerEmployeeEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "nolu kayıt yok "));
-        model.addAttribute("employee_find", registerEmployeeEntity);
+        Employee employeeEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "nolu kayıt yok "));
+        model.addAttribute("employee_find", employeeEntity);
         return "employee_detail_page";
     }
 
@@ -128,10 +127,10 @@ public class EmployeeController implements IEmployeeController{
     // http://localhost:8091/employee/delete/1
     @GetMapping({"/daily/delete", "/daily/delete/{id}"})
     public String employeeDeleteById(@PathVariable(name = "id", required = false) long id, Model model) {
-        Employee registerEmployeeEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + " nolu kayıt yok, silinemez."));
-        if (registerEmployeeEntity != null){
+        Employee employeeEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + " nolu kayıt yok, silinemez."));
+        if (employeeEntity != null){
             repository.deleteById(id);
-            model.addAttribute("key_delete", registerEmployeeEntity + " silindi");
+            model.addAttribute("key_delete", employeeEntity + " silindi");
         } else
             model.addAttribute("key_delete", id + "nolu veri yok");
         return "redirect:/employee/list";
@@ -142,9 +141,9 @@ public class EmployeeController implements IEmployeeController{
     @GetMapping("/employee/update/{id}")
     @Override
     public String updateGetEmployee(@PathVariable(name = "id") long id, Model model) {
-        Employee registerEmployeeEntityFind = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "nolu kayıt yok, güncellenemez."));
-        if (registerEmployeeEntityFind != null){
-            model.addAttribute("key_update", registerEmployeeEntityFind);
+        Employee employeeEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "nolu kayıt yok, güncellenemez."));
+        if (employeeEntity != null){
+            model.addAttribute("key_update", employeeEntity);
         } else
             model.addAttribute("key_update", id + "numarali veri yok.");
         return "employee_update";
@@ -159,10 +158,10 @@ public class EmployeeController implements IEmployeeController{
             log.error("HATA", bindingResult);
             return "employee_update";
         }
-        Employee registerEmployeeEntity = modelMapperBean.modelMapperMethod().map(employeeDto, Employee.class);
+        Employee employeeEntity = modelMapperBean.modelMapperMethod().map(employeeDto, Employee.class);
         try {
-            if (registerEmployeeEntity!= null){
-                repository.save(registerEmployeeEntity);
+            if (employeeEntity!= null){
+                repository.save(employeeEntity);
             }
         } catch (Exception e){
             e.printStackTrace();

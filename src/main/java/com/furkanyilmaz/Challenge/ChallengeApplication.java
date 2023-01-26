@@ -1,5 +1,7 @@
 package com.furkanyilmaz.Challenge;
 
+import com.furkanyilmaz.Challenge.data.HibernateUtil;
+import com.mysql.cj.Session;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -26,6 +28,8 @@ public class ChallengeApplication {
 
 
 	public static void main(String[] args) {
+
+		//Session session= (Session) HibernateUtil.getSessionFactory().openSession();
 		//devtool active inactive
 		System.setProperty("spring.devtools.restart.enabled","true");
 
